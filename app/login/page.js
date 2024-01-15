@@ -1,8 +1,13 @@
 "use client";
 import { useRouter } from "next/navigation";
-import { auth } from "@/firebase/config";
-import { signInWithEmailAndPassword,onAuthStateChanged } from "firebase/auth";
+import { auth, provider } from "@/firebase/config";
+import {
+  signInWithEmailAndPassword,
+  onAuthStateChanged,
+  signInWithPopup,
+} from "firebase/auth";
 import React, { useState } from "react";
+import SiginIn from "@/components/siginIn";
 const Home = () => {
   const router = useRouter();
   const [formData, setFormData] = useState({
@@ -10,12 +15,27 @@ const Home = () => {
     pass: "",
   });
 
+  const [log, setLog] = useState(1);
+  const [error, seterror] = useState("");
   onAuthStateChanged(auth, (user) => {
     if (user) {
-     router.push("/dashboard");
+      router.push("/dashboard");
     }
-     
   });
+
+  const sigingoogle = (e) => {
+    signInWithPopup(auth, provider)
+      .then((result) => {
+        const credential = GoogleAuthProvider.credentialFromResult(result);
+        const token = credential.accessToken;
+        const user = result.user;
+        router.push("/dashboard");
+      })
+      .catch((error) => {
+        const errorMessage = error.message;
+        console.log(errorMessage);
+      });
+  };
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -23,59 +43,79 @@ const Home = () => {
   };
 
   const handleSubmit = (e) => {
+    setLog(0);
     e.preventDefault();
     signInWithEmailAndPassword(auth, formData.email, formData.pass)
       .then((userCredential) => {
         router.push("/dashboard");
       })
       .catch((error) => {
-        const errorCode = error.code;
-        const errorMessage = error.message;
-        alert(error.message);
+        setLog(1);
+        seterror("Incorrect Username/Password")
       });
   };
   return (
-    <div className="bg-blue-200  w-screen h-screen flex flex-col justify-center items-center p-2">
-      <div className="flex flex-col shadow-2xl rounded-2xl justify-center items-center bg-slate-200  p-0">
-        <div className="mt-4 mb-5">
-          <h1>Login Form</h1>
+    <div>
+      {log ? (
+        <div className="bg-blue-200  w-screen h-screen flex flex-col justify-center items-center p-2">
+          <div className="flex flex-col shadow-2xl rounded-2xl justify-center items-center bg-slate-200  p-0">
+            <div className="p-3 font-serif text-2xl">
+              <h1>Login</h1>
+            </div>
+            <div className="px-5">
+              <form
+                onSubmit={handleSubmit}
+                className="flex flex-col justify-center items-center"
+              >
+                <label>
+                  Email:
+                  <br />
+                  <input
+                    type="text"
+                    name="email"
+                    value={formData.email}
+                    onChange={handleChange}
+                    className="rounded-md"
+                  />
+                </label>
+                <br />
+                <label>
+                  Password:
+                  <br />
+                  <input
+                    type="Password"
+                    name="pass"
+                    value={formData.pass}
+                    onChange={handleChange}
+                    className="rounded-md"
+                  />
+                </label>
+                <p className="text-red-600 text-sm">{error}</p>
+                <br />
+                <button
+                  type="submit"
+                  className="bg-green-400 rounded-md  min-w-28 h-8 "
+                >
+                  Log In
+                </button>
+              <p>or</p>
+              <div className="pb-2">
+              <button
+                onClick={sigingoogle}
+                className="bg-blue-500 text-white rounded-md  w-max h-8 px-2 "
+              >
+                Continue with Google
+              </button>
+              </div>
+              </form>
+            </div>
+          </div>
         </div>
-        <div className="mr-10 ml-10 mb-4">
-          <form
-            onSubmit={handleSubmit}
-            className="flex flex-col justify-center items-center"
-          >
-            <label>
-              Email:
-              <input
-                type="text"
-                name="email"
-                value={formData.email}
-                onChange={handleChange}
-                className=""
-              />
-            </label>
-            <br />
-            <label>
-              Password:
-              <input
-                type="Password"
-                name="pass"
-                value={formData.pass}
-                onChange={handleChange}
-                className=" "
-              />
-            </label>
-            <br />
-            <button
-              type="submit"
-              className="bg-green-400 rounded-md  w-20 h-7 "
-            >
-              Submit
-            </button>
-          </form>
+      ) : (
+        <div>
+          <SiginIn />
         </div>
-      </div>
+      )}
     </div>
   );
 };
