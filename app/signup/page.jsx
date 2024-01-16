@@ -89,11 +89,11 @@ const addDataOnDatabase = async (e)=> {
             >
               <input
                 type="text"
-                name="Name"
+                name="name"
                 value={formData.name}
                 onChange={handleChange}
                 className=""
-                placeholder="Name"
+                placeholder="ame"
               />
 
               <input
