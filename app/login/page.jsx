@@ -5,6 +5,7 @@ import {
   signInWithEmailAndPassword,
   onAuthStateChanged,
   signInWithPopup,
+  sendPasswordResetEmail,
 } from "firebase/auth";
 import React, { useState } from "react";
 import SiginIn from "@/components/siginIn";
@@ -40,6 +41,18 @@ const Home = () => {
       });
   };
 
+const changepass =()=>{
+  sendPasswordResetEmail(auth, formData.email)
+  .then(() => {
+    window.alert("Password rest email sent");
+  })
+  .catch((error) => {
+    const errorCode = error.code;
+    const errorMessage = error.message;
+    window.alert(errorMessage);
+  });
+};
+
   const handleChange = (e) => {
     const { name, value } = e.target;
     setFormData((prevData) => ({ ...prevData, [name]: value }));
@@ -60,7 +73,6 @@ const Home = () => {
   return (
     <div className="w-screen h-screen flex justify-center items-center">
       {log ? (
-     
         <div className="w-full h-max flex flex-col sm:h-max sm:w-96 sm:shadow-xl sm:pb-4">
           <div className="w-full h-1/2 sm:hidden flex justify-center items-center">
             <Image
@@ -94,7 +106,11 @@ const Home = () => {
                 className=""
                 placeholder="Password"
               />
-
+              <span className="flex gap-1 pb-2">
+                <button onClick={changepass}>
+                  <span className="text-blue-500 font-semibold">Forgot Password?</span>
+                </button>
+              </span>
               <p className="text-red-600 text-sm">{error}</p>
               <button
                 type="submit"
@@ -103,29 +119,26 @@ const Home = () => {
                 Log In
               </button>
               <div className="w-full flex items-center justify-center gap-3 my-3">
-                <hr style={{height:'1px'}} className="w-36"/>
+                <hr style={{ height: "1px" }} className="w-36" />
                 <span>or</span>
-                <hr style={{height:'1px'}} className="w-36"/>
+                <hr style={{ height: "1px" }} className="w-36" />
               </div>
-             
-                <button
-                  onClick={sigingoogle}
-                  className=" flex gap-2 bg-blue-500 text-white p-1 pr-2 items-center mb-3"
-                >
-                  <div className="bg-white p-1">
-                  <Image src={'/google.svg'} width={35} height={35} alt="G"/>
-                  </div>
-                  <span className="px-3">
-                  Continue with Google
-                  </span>
-                </button>
-                <span className="flex gap-1">
-                  <span className="text-gray-400">Don't have an Account?</span>
-                <Link href={'#'}>
-                <span className="text-blue-500 font-semibold">Signup</span>
+
+              <button
+                onClick={sigingoogle}
+                className=" flex gap-2 bg-blue-500 text-white p-1 pr-2 items-center mb-3"
+              >
+                <div className="bg-white p-1">
+                  <Image src={"/google.svg"} width={35} height={35} alt="G" />
+                </div>
+                <span className="px-3">Continue with Google</span>
+              </button>
+              <span className="flex gap-1">
+                <span className="text-gray-400">Don't have an Account?</span>
+                <Link href={"/signup"}>
+                  <span className="text-blue-500 font-semibold">Signup</span>
                 </Link>
-                </span>
-            
+              </span>
             </form>
           </div>
         </div>
