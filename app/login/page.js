@@ -8,6 +8,9 @@ import {
 } from "firebase/auth";
 import React, { useState } from "react";
 import SiginIn from "@/components/siginIn";
+import Image from "next/image";
+import Link from "next/link";
+
 const Home = () => {
   const router = useRouter();
   const [formData, setFormData] = useState({
@@ -55,60 +58,75 @@ const Home = () => {
       });
   };
   return (
-    <div>
+    <div className="w-screen h-screen flex justify-center items-center">
       {log ? (
-        <div className="bg-blue-200  w-screen h-screen flex flex-col justify-center items-center p-2">
-          <div className="flex flex-col shadow-2xl rounded-2xl justify-center items-center bg-slate-200  p-0">
-            <div className="p-3 font-serif text-2xl">
-              <h1>Login</h1>
-            </div>
-            <div className="px-5">
-              <form
-                onSubmit={handleSubmit}
-                className="flex flex-col justify-center items-center"
+     
+        <div className="w-full h-max flex flex-col sm:h-max sm:w-96 sm:shadow-xl sm:pb-4">
+          <div className="w-full h-1/2 sm:hidden flex justify-center items-center">
+            <Image
+              src={"/login.svg"}
+              height={0}
+              width={0}
+              style={{ height: "100%", width: "auto" }}
+              alt="login"
+            />
+          </div>
+          <div className="w-full h-1/2 flex flex-col text-center px-10">
+            <h1 className="text-4xl text-blue-500 font-semibold mt-3">Login</h1>
+            <form
+              onSubmit={handleSubmit}
+              className="flex flex-col justify-center items-center mt-4"
+            >
+              <input
+                type="text"
+                name="email"
+                value={formData.email}
+                onChange={handleChange}
+                className=""
+                placeholder="Email"
+              />
+
+              <input
+                type="Password"
+                name="pass"
+                value={formData.pass}
+                onChange={handleChange}
+                className=""
+                placeholder="Password"
+              />
+
+              <p className="text-red-600 text-sm">{error}</p>
+              <button
+                type="submit"
+                className="w-full bg-blue-500 text-white p-2 rounded-3xl"
               >
-                <label>
-                  Email:
-                  <br />
-                  <input
-                    type="text"
-                    name="email"
-                    value={formData.email}
-                    onChange={handleChange}
-                    className="rounded-md"
-                  />
-                </label>
-                <br />
-                <label>
-                  Password:
-                  <br />
-                  <input
-                    type="Password"
-                    name="pass"
-                    value={formData.pass}
-                    onChange={handleChange}
-                    className="rounded-md"
-                  />
-                </label>
-                <p className="text-red-600 text-sm">{error}</p>
-                <br />
+                Log In
+              </button>
+              <div className="w-full flex items-center justify-center gap-3 my-3">
+                <hr style={{height:'1px'}} className="w-36"/>
+                <span>or</span>
+                <hr style={{height:'1px'}} className="w-36"/>
+              </div>
+             
                 <button
-                  type="submit"
-                  className="bg-green-400 rounded-md  min-w-28 h-8 "
+                  onClick={sigingoogle}
+                  className=" flex gap-2 bg-blue-500 text-white p-1 pr-2 items-center mb-3"
                 >
-                  Log In
+                  <div className="bg-white p-1">
+                  <Image src={'/google.svg'} width={35} height={35} alt="G"/>
+                  </div>
+                  <span className="px-3">
+                  Continue with Google
+                  </span>
                 </button>
-                <p>or</p>
-                <div className="pb-2">
-                  <button
-                    onClick={sigingoogle}
-                    className="bg-blue-500 text-white rounded-md  w-max h-8 px-2 "
-                  >
-                    Continue with Google
-                  </button>
-                </div>
-              </form>
-            </div>
+                <span className="flex gap-1">
+                  <span className="text-gray-400">Don't have an Account?</span>
+                <Link href={'#'}>
+                <span className="text-blue-500 font-semibold">Signup</span>
+                </Link>
+                </span>
+            
+            </form>
           </div>
         </div>
       ) : (

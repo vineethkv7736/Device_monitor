@@ -1,3 +1,15 @@
+@import url("https://fonts.googleapis.com/css2?family=AR+One+Sans&family=Bitter&family=Lato:ital,wght@0,100;0,300;0,400;0,700;0,900;1,100;1,300;1,400;1,700;1,900&display=swap");
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+
+h1,span{
+  font-family: "Lato", sans-serif;
+  font-weight: 400;
+  font-style: normal;
+}
+input{
+    @apply w-full p-2 pl-4 rounded-3xl border-2 border-blue-500 mb-4 focus:outline-none focus:ring-0
+}
