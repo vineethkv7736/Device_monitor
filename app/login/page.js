@@ -51,7 +51,7 @@ const Home = () => {
       })
       .catch((error) => {
         setLog(1);
-        seterror("Incorrect Username/Password")
+        seterror("Incorrect Username/Password");
       });
   };
   return (
@@ -98,15 +98,15 @@ const Home = () => {
                 >
                   Log In
                 </button>
-              <p>or</p>
-              <div className="pb-2">
-              <button
-                onClick={sigingoogle}
-                className="bg-blue-500 text-white rounded-md  w-max h-8 px-2 "
-              >
-                Continue with Google
-              </button>
-              </div>
+                <p>or</p>
+                <div className="pb-2">
+                  <button
+                    onClick={sigingoogle}
+                    className="bg-blue-500 text-white rounded-md  w-max h-8 px-2 "
+                  >
+                    Continue with Google
+                  </button>
+                </div>
               </form>
             </div>
           </div>
