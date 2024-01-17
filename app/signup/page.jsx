@@ -69,9 +69,9 @@ const addDataOnDatabase = async (e)=> {
       });
   };
   return (
-    <div className="w-screen h-screen flex justify-center items-center">
+    <div className="w-screen h-max sm:h-screen flex justify-center sm:items-center">
       {log ? (
-        <div className="w-full h-max flex flex-col sm:h-max sm:w-96 sm:shadow-xl sm:pb-4">
+        <div className="w-full h-max flex flex-col sm:h-max sm:w-96 sm:shadow-xl pb-4">
           <div className="w-full h-1/2 sm:hidden flex justify-center items-center">
             <Image
               src={"/login.svg"}
@@ -93,7 +93,8 @@ const addDataOnDatabase = async (e)=> {
                 value={formData.name}
                 onChange={handleChange}
                 className=""
-                placeholder="ame"
+                placeholder="Name"
+                required
               />
 
               <input
@@ -103,6 +104,7 @@ const addDataOnDatabase = async (e)=> {
                 onChange={handleChange}
                 className=""
                 placeholder="Email"
+                required
               />
 
               <input
@@ -112,13 +114,14 @@ const addDataOnDatabase = async (e)=> {
                 onChange={handleChange}
                 className=""
                 placeholder="Password"
+                required
               />
 
               <button
                 type="submit"
                 className="w-full bg-blue-500 text-white p-2 rounded-3xl"
               >
-                Sign In
+                Sign up
               </button>
               <div className="w-full flex items-center justify-center gap-3 my-3">
                 <hr style={{ height: "1px" }} className="w-36" />

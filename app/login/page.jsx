@@ -21,6 +21,7 @@ const Home = () => {
 
   const [log, setLog] = useState(1);
   const [error, seterror] = useState("");
+  const errorColor = 'border-red-500'
   onAuthStateChanged(auth, (user) => {
     if (user) {
       router.push("/dashboard");
@@ -68,12 +69,15 @@ const changepass =()=>{
       .catch((error) => {
         setLog(1);
         seterror("Incorrect Username/Password");
+        setInterval(() => {
+          seterror("")
+        }, 3000);
       });
   };
   return (
-    <div className="w-screen h-screen flex justify-center items-center">
+    <div className="w-screen h-max sm:h-screen flex justify-center sm:items-center">
       {log ? (
-        <div className="w-full h-max flex flex-col sm:h-max sm:w-96 sm:shadow-xl sm:pb-4">
+        <div className="w-full h-max flex flex-col sm:h-max sm:w-96 sm:shadow-xl pb-4">
           <div className="w-full h-1/2 sm:hidden flex justify-center items-center">
             <Image
               src={"/login.svg"}
@@ -94,7 +98,7 @@ const changepass =()=>{
                 name="email"
                 value={formData.email}
                 onChange={handleChange}
-                className=""
+                className={error && errorColor}
                 placeholder="Email"
               />
 
@@ -103,14 +107,14 @@ const changepass =()=>{
                 name="pass"
                 value={formData.pass}
                 onChange={handleChange}
-                className=""
+                className={`mb-1 ${error && errorColor}`}
                 placeholder="Password"
               />
-              <span className="flex gap-1 pb-2">
-                <button onClick={changepass}>
-                  <span className="text-blue-500 font-semibold">Forgot Password?</span>
+              <div className="w-full flex gap-1 justify-end mb-3">
+                <button className="text-right text-blue-500" onClick={changepass}>
+                  Forgot Password?
                 </button>
-              </span>
+              </div>
               <p className="text-red-600 text-sm">{error}</p>
               <button
                 type="submit"
