@@ -5,7 +5,6 @@ import {
   signInWithEmailAndPassword,
   onAuthStateChanged,
   signInWithPopup,
-  sendPasswordResetEmail,
 } from "firebase/auth";
 import React, { useState } from "react";
 import SiginIn from "@/components/siginIn";
@@ -41,18 +40,6 @@ const Home = () => {
         console.log(errorMessage);
       });
   };
-
-const changepass =()=>{
-  sendPasswordResetEmail(auth, formData.email)
-  .then(() => {
-    window.alert("Password rest email sent");
-  })
-  .catch((error) => {
-    const errorCode = error.code;
-    const errorMessage = error.message;
-    window.alert(errorMessage);
-  });
-};
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -98,7 +85,7 @@ const changepass =()=>{
                 name="email"
                 value={formData.email}
                 onChange={handleChange}
-                className={error && errorColor}
+                className={`mb-2 border-2 rounded-md border-slate-100 p-1 ${error && errorColor}`}
                 placeholder="Email"
               />
 
@@ -107,13 +94,12 @@ const changepass =()=>{
                 name="pass"
                 value={formData.pass}
                 onChange={handleChange}
-                className={`mb-1 ${error && errorColor}`}
+                className={`mb-1 border-2 rounded-md border-slate-100 p-1 ${error && errorColor}`}
                 placeholder="Password"
               />
               <div className="w-full flex gap-1 justify-end mb-3">
-                <button className="text-right text-blue-500" onClick={changepass}>
-                  Forgot Password?
-                </button>
+                <Link className="text-right text-blue-500"  href="/login/resetpass">Forgot Password?</Link>
+        
               </div>
               <p className="text-red-600 text-sm">{error}</p>
               <button

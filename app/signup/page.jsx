@@ -92,7 +92,7 @@ const addDataOnDatabase = async (e)=> {
                 name="name"
                 value={formData.name}
                 onChange={handleChange}
-                className=""
+                className="mb-2 border-2 rounded-md border-slate-100 p-0.5"
                 placeholder="Name"
                 required
               />
@@ -102,7 +102,7 @@ const addDataOnDatabase = async (e)=> {
                 name="email"
                 value={formData.email}
                 onChange={handleChange}
-                className=""
+                className="mb-2 border-2 rounded-md border-slate-100 p-0.5"
                 placeholder="Email"
                 required
               />
@@ -112,7 +112,7 @@ const addDataOnDatabase = async (e)=> {
                 name="pass"
                 value={formData.pass}
                 onChange={handleChange}
-                className=""
+                className="mb-2 border-2 rounded-md border-slate-100 p-0.5"
                 placeholder="Password"
                 required
               />
