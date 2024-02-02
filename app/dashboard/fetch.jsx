@@ -122,8 +122,7 @@ const Fetch = () => {
             <li>used_space: {toSize(fetchedData.storage_info[1].used_space)}</li>
             <li>free_space: {toSize(fetchedData.storage_info[1].free_space)}</li>
           </ul>
-          <button onClick={signout}>signout</button>
-          herjwerj
+          <button onClick={signout} className="bg-blue-300">signout</button>
         </div>
       )}
     </div>
