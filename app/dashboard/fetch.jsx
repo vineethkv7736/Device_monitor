@@ -6,6 +6,8 @@ import {ref, onValue } from "firebase/database";
 import { onAuthStateChanged, signOut } from "firebase/auth";
 import FetchData from "@/components/fetchData";
 
+
+
 const Fetch = () => {
   const router = useRouter();
   const [fetchedData, setFetchedData] = useState({});
@@ -27,7 +29,6 @@ const Fetch = () => {
     }
   };
   
-
   const fetchData =() => {
     const Ref = ref(dbr, 'vineethkv7736/' + '/rasberry_pi');
     onValue(Ref, (snapshot) => {
@@ -36,10 +37,14 @@ const Fetch = () => {
       setFetchSign(0);
     });
   };
-  setInterval(() => {
-        fetchData();
-      }, 1000);
- 
+
+  useEffect(() => {
+    setInterval(() => {
+          fetchData();
+        }, 1000);
+  });
+
+
   onAuthStateChanged(auth, (user) => {
     if (user) {
       userdata.email = user.email;
@@ -50,7 +55,6 @@ const Fetch = () => {
       router.push("/login");
     }
   });
-
   const signout = () => {
     try {
       signOut(auth);
@@ -67,7 +71,7 @@ const Fetch = () => {
           <FetchData />
         </div>
       ) : (
-        <div>
+        <div className="">
 
           <h1>Welcome to Your Next.js App!</h1>
           <h1>hii</h1>
@@ -95,7 +99,31 @@ const Fetch = () => {
             <li>used_space: {toSize(fetchedData.storage_info[1].used_space)}</li>
             <li>free_space: {toSize(fetchedData.storage_info[1].free_space)}</li>
           </ul>
+          <ul>
+            <li>Temperature: {fetchedData.temperature_celsius} °C</li>
+            <li>Timestamp: {fetchedData.timestamp}</li>
+            <li>SSID: {fetchedData.ssid}</li>
+            <li>CPU Usage: {fetchedData.cpu_usage}%</li>
+            <li>Signal Strength: {fetchedData.signal_strength}</li>
+            <li>ram_percent_used: {fetchedData.ram_percent_used}%</li>
+            <li>total_ram: {toSize(fetchedData.total_ram)}</li>
+            <li>used_ram: {toSize(fetchedData.used_ram)}</li>
+            <li>free_ram: {toSize(fetchedData.free_ram)}</li>
+            <br />
+            <li>partition: {fetchedData.storage_info[0].partition}</li>
+            <li>percent_used: {fetchedData.storage_info[0].percent_used}%</li>
+            <li>total_space: {toSize(fetchedData.storage_info[0].total_space)}</li>
+            <li>used_space: {toSize(fetchedData.storage_info[0].used_space)}</li>
+            <li>free_space: {toSize(fetchedData.storage_info[0].free_space)}</li>
+            <br />
+            <li>partition: {fetchedData.storage_info[1].partition}</li>
+            <li>percent_used: {fetchedData.storage_info[1].percent_used}%</li>
+            <li>total_space: {toSize(fetchedData.storage_info[1].total_space)}</li>
+            <li>used_space: {toSize(fetchedData.storage_info[1].used_space)}</li>
+            <li>free_space: {toSize(fetchedData.storage_info[1].free_space)}</li>
+          </ul>
           <button onClick={signout}>signout</button>
+          herjwerj
         </div>
       )}
     </div>

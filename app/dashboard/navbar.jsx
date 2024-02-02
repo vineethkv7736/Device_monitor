@@ -7,36 +7,28 @@ import {
   SheetTitle,
   SheetTrigger,
 } from "@/components/ui/sheet";
+import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 
-const NavBar = () => {
+const NavBar = ({ name, photo, email }) => {
   return (
     <div>
-      <div className="h-10 bg-slate-200 flex flex-row  justify-center items-center">
+      <div className="h-10 bg-slate-50 flex flex-row  justify-center items-center">
         <div className=" flex flex-row  justify-center items-center w-11/12">
           <h1 className="text-blue-400 text- xl">Device Monitor</h1>
         </div>
-        <div className="flex flex-row  justify-end items-center">
+        <div className="fixed right-1 sm:invisible">
           <Sheet>
             <SheetTrigger>
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                fill="none"
-                viewBox="0 0 24 24"
-                strokeWidth={1.5}
-                stroke="currentColor"
-                className="w-6 h-6"
-              >
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  d="M3.75 6.75h16.5M3.75 12h16.5M12 17.25h8.25"
-                />
-              </svg>
+              <Avatar>
+                <AvatarImage src={photo} />
+                <AvatarFallback>CN</AvatarFallback>
+              </Avatar>
             </SheetTrigger>
             <SheetContent>
               <SheetHeader>
                 <SheetTitle>Work in progress</SheetTitle>
-                <SheetDescription>pending......</SheetDescription>
+                <SheetDescription>name:{name}</SheetDescription>
+                <SheetDescription>email:{email}</SheetDescription>
               </SheetHeader>
             </SheetContent>
           </Sheet>
